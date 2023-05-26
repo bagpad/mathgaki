@@ -18,6 +18,7 @@ end_statistics = 0
 correct = 0
 incorrcet = 0
 this = []
+Duplicate = []
 window = tk.Tk()
 window.title("math~gaki")
 window.geometry("1240x600+200+100")
@@ -45,16 +46,22 @@ def next_question(b_n):
     global button_dic
     location = [0,1,2,3]
     location2 = [0,1,2]
+    if(len(Duplicate) == 4):
+        Duplicate = []
    # multi_choice = random.sample(location2,3)
     
-    multi_choice = random.sample(sorted(choice_book),5)    #증복 없에기 테스트
-    #multi_choice = random.sample(sorted(big_dic[b_n]),5)   #원래
+    #multi_choice = random.sample(sorted(choice_book),5)    #증복 없에기 테스트
+    multi_choice = random.sample(sorted(big_dic[b_n]),5)   #원래
     #print(multi_choice)
     question_slect = random.randint(0,3)
     answer = random.randint(0,3)
-    #cur_question = big_dic[b_n][multi_choice[question_slect]]  #원래
-    cur_question = choice_book[multi_choice[question_slect]]   #테스트
+    cur_question = big_dic[b_n][multi_choice[question_slect]]  #원래
+    #cur_question = choice_book[multi_choice[question_slect]]   #테스트
+    for i in range(0,3):
+        if(multi_choice[question_slect] in Duplicate):
+            del multi_choice[question_slect]
 
+    Duplicate.append(multi_choice[question_slect])
     question_label.config(text=multi_choice[question_slect])
     cotae = cur_question["정답"]
     #print(cur_question)
