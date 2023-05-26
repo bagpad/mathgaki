@@ -13,12 +13,16 @@ b = 0
 c = 0
 check = 0
 answer = 0
+<<<<<<< HEAD
 test_idx = 10
 end_statistics = 0
 correct = 0
 incorrcet = 0
 this = []
 Duplicate = []
+=======
+big_dic = {}
+>>>>>>> bcc3088385520eabc3ebc08ddd032bac76865423
 window = tk.Tk()
 window.title("math~gaki")
 window.geometry("1240x600+200+100")
@@ -187,8 +191,12 @@ def new_window(name):
     btn4.pack()
     '''
     for i in range(4):
+<<<<<<< HEAD
         print(i)
         btn = Button(new,text=f"{i}",width=35,height=2,font=("나눔바른펜", 15,"bold"),bg="#F0F0F0",command=lambda x = i: check_answer(x,new))
+=======
+        btn = Button(new,text=f"{i}",width=35,height=2,font=("나눔바른펜", 15,"bold"),bg="#F0F0F0",command=lambda x=i:check_answer(x,new))
+>>>>>>> bcc3088385520eabc3ebc08ddd032bac76865423
         btn.pack()
         btns.append(btn)
     next_question(1)
@@ -222,12 +230,22 @@ tk.Button(window,text="10",width= 15,height= 2, bg="gray",fg="yellow",font=(30),
 
 for i in range(1,11):
     #계산식
+<<<<<<< HEAD
     tk.Button(window,text=i+10,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x = i+10:new_window(x)).place(x = 175,y = i*55)
     tk.Button(window,text=i+20,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x = i+20:new_window(x)).place(x = 175*2,y = i*55)
     tk.Button(window,text=i+30,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x = i+30:new_window(x)).place(x = 175*3,y = i*55)
     tk.Button(window,text=i+40,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x = i+40:new_window(x)).place(x = 175*4,y = i*55)
     tk.Button(window,text=i+50,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x = i+50:new_window(x)).place(x = 175*5,y = i*55)
     tk.Button(window,text=i+60,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x = i+60:new_window(x)).place(x = 175*6,y = i*55)
+=======
+    #tk.Button(window,text=i+10,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda:new_window(i+10)).place(x = 175,y = i*55)
+    tk.Button(window,text=i+10,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x=i+10:new_window(x)).place(x = 175,y = i*55)
+    tk.Button(window,text=i+20,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x=i+20:new_window(x)).place(x = 175*2,y = i*55)
+    tk.Button(window,text=i+30,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x=i+30:new_window(x)).place(x = 175*3,y = i*55)
+    tk.Button(window,text=i+40,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x=i+40:new_window(x)).place(x = 175*4,y = i*55)
+    tk.Button(window,text=i+50,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x=i+50:new_window(x)).place(x = 175*5,y = i*55)
+    tk.Button(window,text=i+60,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x=i+60:new_window(x)).place(x = 175*6,y = i*55)
+>>>>>>> bcc3088385520eabc3ebc08ddd032bac76865423
 
 r = tk.Button(window,text="결과창미리보기",width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= result_page)
 #r.place(x = 175,y = 55)
