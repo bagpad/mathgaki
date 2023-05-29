@@ -1,5 +1,7 @@
 import pymysql
 
+
+# DB 접속 함수 (따로 꺼내 쓸 일은 없을듯.)
 def connect_to_database():
     try:
         # DB 접속
@@ -11,12 +13,18 @@ def connect_to_database():
         print(f'DB 연결 실패: {e}')
         return None
 
+    
+# DB 좁속 해제 함수 (이것도 따로 꺼내 쓸 일 X)
 def close_connection():
     db = pymysql.connect(host='127.0.0.1', port=3306, user='bagpad',
                          passwd='JLim2015', db='mathgaki', charset='utf8')
     # DB 연결 닫기
     db.close()
 
+    
+    
+
+# DB에 데이터 추가하는 함수. 밑에 'new_data' 있는 정보를 DB에 삽입.
 def insert_data(data):
     # DB 연결
     db = connect_to_database()
@@ -38,6 +46,9 @@ def insert_data(data):
     # DB 연결 종료
     close_connection()
 
+    
+    
+# 책 번호를 기준으로 DB 정보 삭제. ex) delete_data_bn('2')은 2번 책 문제 전체 삭제
 def delete_data_bn(book_num):
     # DB 연결
     db = connect_to_database()
@@ -50,6 +61,10 @@ def delete_data_bn(book_num):
     # DB 연결 종료
     close_connection()
 
+    
+    
+    
+# 문제를 기준으로 DB정보 삭제
 def delete_data_qn(question):
     # DB 연결
     db = connect_to_database()
@@ -62,6 +77,11 @@ def delete_data_qn(question):
     # DB 연결 종료
     close_connection()
 
+    
+    
+    
+    
+# DB 데이터 불러오기 함수
 def fetch_data():
     # DB 연결
     db = connect_to_database()
@@ -96,7 +116,7 @@ def fetch_data():
     return big_dic
 
 
-# 실행!!!!
+# ======================== 실행 예시 ======================== #
 
 new_data = [
     {'book_num': '01', 'question': 'Q1', 'c_answer': '답1', 'f_answer1': '답2', 'f_answer2': '답3', 'f_answer3': '답4'},
