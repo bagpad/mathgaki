@@ -155,15 +155,6 @@ print(data)
 
 
 
-
-
-
-
-
-
-
-
-
 # 1. db 인자로 안받아도 되게끔 만들어 clear         
 # 2. 접속여부 확인 (try catch문) clear
 # 3. 예외 처리(접속 안될 경우?) --> 출력 clear
