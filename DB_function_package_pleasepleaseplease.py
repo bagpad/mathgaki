@@ -148,8 +148,6 @@ new_data = [
 data = fetch_data()
 
 
-
-
 print(data)
 
 
