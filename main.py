@@ -1,21 +1,39 @@
 from tkinter import *
 import tkinter as tk
 import random
-import DB_function_package as db
+import DB_function_package_pleasepleaseplease as db
 
-#import pymysql
-#con = pymysql.connect(host='127.0.0.1', user='root', password=1020, db='soloDB', charset='utf8')
-#cur = con.cursor()
 
-## db해보는곳 ---------------------------------------------------------------------------------------------
+
 window = tk.Tk()
 window.title("math~gaki")
-window.geometry("1240x600+200+100")
+window.geometry("1300x600+200+100")
 window.resizable(True,True)
 window.configure(bg="#49A")
+window.attributes("-fullscreen", True)
+window.bind("<F11>", lambda event: window.attributes("-fullscreen",  not window.attributes("-fullscreen")))
+window.bind("<Escape>", lambda event: window.attributes("-fullscreen", False))
 title = tk.Label(window, text="책을 선택하세요(1~88권)", width= 50, height= 2,relief="groove")
 title.pack()
+photo = PhotoImage(file="green c.png")
+photo2 = PhotoImage(file="red c.png")
+su = Label(window, image=photo,width=20)
+fa = Label(window, image=photo2,width=20)
+'''
+try:
+    a= db.connect_to_database
+    su.pack()
+except:
+    fa.pack()
+'''
 
+
+'''
+if(a == db):
+    su.pack()
+else:
+    fa.pack()
+'''
 class mathgaki():
     global window
 
@@ -27,12 +45,14 @@ class mathgaki():
         self.answer = 0
         self.end_statistics = 0
         self.correct = 0
-        self.incorrcet = 0
+        self.incorrcet =0
         self.this = []
         self.Duplicate = []
         #self.test_list = [["문제1번","답1","답1-2","답1-3","답1-4"],["문제2","답2","답2-2","답2-3","답2-4"],["문제3","답3","답3-2","답3-3","답3-4"],["문제4","답4","답4-1","답4-2","답4-3","답4-4"]]#,["문제5","답5"],["문제6","답6"]] #문제 하나에 답여러게 
         #self.big_dic = {1: {'Q1': {'정답': '집합론', '오답': ['답2', '답3', '답4']}, 'Q2': {'정답': '답1', '오답': ['답2', '답3', '답4']}, 'Q3': {'정답': '답1', '오답': ['답2', '답3', '답4']}, 'Q4': {'정답': '답1', '오답': ['답2', '답3', '답4']}, 'Q5': {'정답': '답1', '오답': ['답2', '답3', '답4']}}, 2: {'칸토어가 "____" 을 처음 발표할 때 수학계의 거센 반론을 받았다.': {'정답': '집합론', '오답': ['밴다이어그램', '조건제시법', '상대성이론']}, '칸토어의 국적은 "____"이다.': {'정답': '독일', '오답': ['러시아', '프랑스', '덴마크']}, '다음 중 집합이 될 수 없는 경우는?': {'정답': '귀여운 동물들의 집합', '오답': ['이름이 세 글자인 동물들의 집합', '조류의 집합', '물 속에 사는 동물들의 집합']}, 'Q4': {'정답': '답1', '오답': ['답2', '답3', '답4']}, 'Q5': {'정답': '답1', '오답': ['답2', '답3', '답4']}}}#{1:{"문제1":{"정답":"답1","오답":["답1-2","답1-3","답1-4"]},"문제2":{"정답":"답2","오답":["답2-2","답2-3","답2-4"]},"문제3":{"정답":"답3","오답":["답3-2","답3-3","답3-4"]},"문제4":{"정답":"답4","오답":["답4-2","답4-3","답4-4"]}}}
-        self.big_dic = db.fetch_data()
+        #self.big_dic = db.fetch_data()
+        self.big_dic = {1: {'Q1': {'정답': '집합론', '오답': ['답2', '답3', '답4']}, 'Q2': {'정답': '답1', '오답': ['답2', '답3', '답4']}, 'Q3': {'정답': '답1', '오답': ['답2', '답3', '답4']}, 'Q4': {'정답': '답1', '오답': ['답2', '답3', '답4']}, 'Q5': {'정답': '답1', '오답': ['답2', '답3', '답4']}}, 2: {'칸토어가 "____" 을 처음 발표할 때 수학계의 거센 반론을 받았다.': {'정답': '집합론', '오답': ['밴다이어그램', '조건제시법', '상대성이론']}, '칸토어의 국적은 "____"이다.': {'정답': '독일', '오답': ['러시아', '프랑스', '덴마크']}, '다음 중 집합이 될 수 없는 경우는?': {'정답': '귀여운 동물들의 집합', '오답': ['이름이 세 글자인 동물들의 집합', '조류의 집합', '물 속에 사는 동물들의 집합']}, 'Q4': {'정답': '답1', '오답': ['답2', '답3', '답4']}, 'Q5': {'정답': '답1', '오답': ['답2', '답3', '답4']}}}#{1:{"문제1":{"정답":"답1","오답":["답1-2","답1-3","답1-4"]},"문제2":{"정답":"답2","오답":["답2-2","답2-3","답2-4"]},"문제3":{"정답":"답3","오답":["답3-2","답3-3","답3-4"]},"문제4":{"정답":"답4","오답":["답4-2","답4-3","답4-4"]}}}
+        
         self.button_dic = {}
         self.multi_choice = None
         
@@ -49,8 +69,11 @@ class mathgaki():
 #{"믅[1]":{"진답":1,"가답":[1,2,3,4,5,6,7,8,9,0]} }
 
     def question_selct_funtion(self,b_n):
+        big_dic_len = len(self.big_dic[b_n])
         if self.multi_choice == None:
-            self.multi_choice = random.sample(sorted(self.big_dic[b_n]),5)   #원래
+            self.multi_choice = random.sample(sorted(self.big_dic[b_n]),big_dic_len)   #원래5
+            print(self.big_dic[b_n])
+            print(self.big_dic[b_n]['다음 중 집합이 될 수 없는 경우는?'])
             print(self.multi_choice)
             self.next_question(b_n)
         else:
@@ -62,10 +85,10 @@ class mathgaki():
         global multi_choice
         global cotae
         global q
-        global button_dic
         location = [0,1,2,3]
         location2 = [0,1,2]
         multi_choice_len = len(self.multi_choice)
+        print(multi_choice_len)
         if(len(self.Duplicate) == 4):
             self.Duplicate = []
     # multi_choice = random.sample(location2,3)   
@@ -138,7 +161,7 @@ class mathgaki():
                 #self.incorrcet = 0
                 self.quit(new)
             else:
-                w.after(1000,self.question_selct_funtion(1))
+                w.after(1000,self.question_selct_funtion(2))
         else:
             self.end_statistics += 1
             print("틀렸다")
@@ -151,7 +174,7 @@ class mathgaki():
                 self.quit(new)
                 
             else:
-                w.after(1000,self.question_selct_funtion(1)) 
+                w.after(1000,self.question_selct_funtion(2)) 
     
     def new_window(self,name):
         global question_label
@@ -163,10 +186,10 @@ class mathgaki():
         new.title(name) 
         new.geometry("900x600+450+200")
         new.resizable(True,True)
-        question_label =  Label(new,width=20,height=2,text="test",font=("나눔바른펜", 25,"bold"), bg= "#21325E",fg= "white")
+        question_label =  Label(new,width=50,height=2,text="test",font=("나눔바른펜", 20,"bold"), bg= "#21325E",fg= "white")
         question_label.pack(pady=30)
         btns = []
-        choice_book = self.big_dic[1]
+        choice_book = self.big_dic[2]
         '''
         btn1 = Button(new,text="",width=35,height=2,font=("나눔바른펜", 15,"bold"),bg="#F0F0F0",command=lambda: check_answer(0,new))
         btns.append(btn1)
@@ -186,7 +209,7 @@ class mathgaki():
             btn = Button(new,text=f"{i}",width=35,height=2,font=("나눔바른펜", 15,"bold"),bg="#F0F0F0",command=lambda x = i: self.check_answer(x,new))
             btn.pack()
             btns.append(btn)
-        self.question_selct_funtion(1)
+        self.question_selct_funtion(2)
         tk.Button(new, text="뒤로가기", relief="groove", command= lambda: self.quit(new)).pack(side=BOTTOM)
 
     def result_page (self,y,n):
@@ -225,6 +248,7 @@ for i in range(1,11):
     tk.Button(window,text=i+40,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x = i+40:start.new_window(x)).place(x = 175*4,y = i*55)
     tk.Button(window,text=i+50,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x = i+50:start.new_window(x)).place(x = 175*5,y = i*55)
     tk.Button(window,text=i+60,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x = i+60:start.new_window(x)).place(x = 175*6,y = i*55)
+    tk.Button(window,text=i+70,width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= lambda x = i+70:start.new_window(x)).place(x = 175*7,y = i*55)
 
 r = tk.Button(window,text="결과창미리보기",width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= start.result_page)
 #r.place(x = 175,y = 55)
