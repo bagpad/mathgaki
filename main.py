@@ -1,7 +1,8 @@
 from tkinter import *
 import tkinter as tk
 import random
-import DB_function_package_pleasepleaseplease as db
+#import DB_function_package_pleasepleaseplease as db
+import update_db as db
 #import ttkthemes as ttk
 from tkinter import ttk
 from ttkthemes import ThemedTk
