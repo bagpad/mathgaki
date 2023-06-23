@@ -1,12 +1,12 @@
 import pymysql
-
+import json
 
 # DB 접속 함수 (따로 꺼내 쓸 일은 없을듯.)
 def connect_to_database():
     try:
         # DB 접속
-        db = pymysql.connect(host='tkddn4508.dothome.co.kr', port=21, user='tkddn4508',
-                             passwd='gom20726!', db='math101', charset='utf8')
+        db = pymysql.connect(host='solimatics@localhost', port=3306, user="solimatics",
+                             passwd="dudrnr68*", db='math101', charset='utf8')
         print('DB 연결 성공')
         return db
     except pymysql.Error as e:
@@ -16,8 +16,8 @@ def connect_to_database():
     
 # DB 접속 해제 함수 (이것도 따로 꺼내 쓸 일 X)
 def close_connection():
-    db = pymysql.connect(host='tkddn4508.dothome.co.kr', port=21, user='tkddn4508',
-                             passwd='gom20726!', db='math101', charset='utf8')
+    db = pymysql.connect(host='solimatics@localhost', port=3306, user="solimatics",
+                             passwd="dudrnr68*", db='math101', charset='utf8')
     # DB 연결 닫기
     db.close()
 
@@ -145,7 +145,7 @@ new_data = [
 
 
 # 데이터 불러오기
-data = fetch_data()
+data = connect_to_database()
 
 
 
