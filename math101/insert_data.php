@@ -17,13 +17,13 @@
         $f_answer3 = $_POST['f_answer3'];
 
         $stmt = $conn->prepare("SELECT COUNT(*) AS count FROM math101 WHERE book_num = ? AND question = ?");
-        $stmt->bind_param("ii", $book_num, $question);
+        $stmt->bind_param("is", $book_num, $question);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = mysqli_fetch_array($result);
         if ($row['count'] == 0) {
             $stmt = $conn->prepare("INSERT INTO math101 (book_num, question, c_answer, f_answer1, f_answer2, f_answer3) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("iiiiii", 
+            $stmt->bind_param("isssss", 
                 $book_num, 
                 $question, 
                 $c_answer, 
