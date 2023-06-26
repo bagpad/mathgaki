@@ -5,6 +5,7 @@ import DB_function_package_pleasepleaseplease as db
 #import ttkthemes as ttk
 from tkinter import ttk
 from ttkthemes import ThemedTk
+import encodings
 
 
 #window = tk.Tk() 
@@ -21,7 +22,7 @@ title.place(x = 78,y=80 )
 photo = PhotoImage(file="green c.png")
 photo2 = PhotoImage(file="red c.png")
 mascot = PhotoImage(file="greent Tiger.png")
-junlim = PhotoImage(file="jun.png")
+#junlim = PhotoImage(file="jun.png")
 su = Label(window, image=photo,width=100,bg="#49A")
 fa = Label(window, image=photo2,width=100,bg="#49A")
 btn = tk.Button(window,text="시작",width=30,height=2,command=lambda:start.choice_page())
@@ -30,8 +31,12 @@ secret = tk.Button(window,text="d",width=10,height=1,command=lambda:start.develo
 secret.place(x = 180,y= 320)
 gt = Label(window,image=mascot,bg="#006400")
 gt.place(x = 0,y=265)
-jun = Label(window,image=junlim,bg="#006400")
-jun.place(x= 255,y = 265)
+frame = Frame(window)
+
+
+
+#jun = Label(window,image=junlim,bg="#006400")
+#jun.place(x= 255,y = 265)
 try:
     a= db.connect_to_database
     su.place(x = 2000,y=0)
@@ -61,6 +66,7 @@ class mathgaki():
         self.button_dic = {}
         self.multi_choice = None
         self.insert_db = [{'book_num': '01', 'question': 'Q1', 'c_answer': '답1', 'f_answer1': '답2', 'f_answer2': '답3', 'f_answer3': '답4'}]
+        self.check_command = []
         '''
         self.book_name = None
         self.question = None
@@ -286,16 +292,35 @@ class mathgaki():
     def developer_check(self):
         devel_check_window = Toplevel()
         devel_check_window.title("password?")
-        devel_check_window.geometry("360x360+600+200")
+        devel_check_window.geometry("360x360+200+200")
         devel_check_window.resizable(True,True)
         self.password_input = Entry(devel_check_window)
         self.password_input.pack()
         password_btn = tk.Button(devel_check_window,text="확인",command=lambda:self.password(devel_check_window))
         password_btn.pack()
+    def kry_press(self,event):
+        pass
+        if(event == ['6','3','2','1','4','6','s']):
+            self.developer_check()
+        else:
+            print("올바르지 않은 커맨드")
+
 
 #r = tk.Button(window,text="결과창미리보기",width= 15,height= 2, bg="gray",fg="yellow",font=(30),command= start.result_page)
 #r.place(x = 175,y = 55)
+c = []
+def a(event):
+    #c.append(int(repr(event.char)))
+    c.append(repr(event.char))
+    print(c) 
+    if(repr(event.char) == 's'):
+        start.kry_press(c)
+    else:
+        print("올바르지 않은 커맨드")
+
 start = mathgaki()
+window.bind("<Key>",a)
+window.bind("<F1>", lambda event: start.developer_check())
 window.mainloop()
 
 
