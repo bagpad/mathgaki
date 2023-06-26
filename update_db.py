@@ -5,7 +5,7 @@ import json
 def insert_data(data):
     for new_data in data:
         post = {'book_num': new_data['book_num'], 'question': new_data['question'],'c_answer': new_data['c_answer'],'f_answer1': new_data['f_answer1'],'f_answer2': new_data['f_answer2'],'f_answer3': new_data['f_answer3']}
-    response = requests.post('http://tkddn4508.dothome.co.kr/math101/insert_data.php', data=post)
+        response = requests.post('http://tkddn4508.dothome.co.kr/math101/insert_data.php', data=post)
     print(response)
 
 # 책 번호를 기준으로 DB 정보 삭제. ex) delete_data_bn('2')은 2번 책 문제 전체 삭제
