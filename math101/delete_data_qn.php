@@ -12,10 +12,10 @@
         $question = $_POST['question'];
 
         $stmt = $conn->prepare("DELETE FROM math101 WHERE question = ?");
-        $stmt->bind_param("i", $question);
+        $stmt->bind_param("s", $question);
         $stmt->execute();
 
-        if ($stmt->affected_rows > 0) {
+        if ($stmt -> affected_rows > 0) {
             $json = json_encode(array("result" => 'success', "msg" => 'success'));
         } else {
             $json = json_encode(array("result" => 'fail', "msg" => 'delete fail'));
