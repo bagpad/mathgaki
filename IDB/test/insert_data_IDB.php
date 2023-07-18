@@ -9,11 +9,11 @@
     /* DB 연결 확인 */
     if($conn){ // 연결 성공
         /* DB SELECT*/
-        $name = $_POST['name'];
-        $student_num = $_POST['student_num'];
-        $error_count = $_POST['error_count'];
-        $MSG = $_POST['MSG']; 
-        $MSG_TF = $_POST['MSG_TF'];
+        $name = "이상우";//$_POST['name'];
+        $student_num = 20230001;//$_POST['student_name'];
+        $error_count = "{error_count : 1}";//$_POST['error_count'];
+        $MSG = "반갑습니다.";$_POST['MSG']; 
+        $MSG_TF = 0;//$_POST['MSG_TF'];
 
         $stmt = $conn->prepare("SELECT COUNT(*) AS count FROM Student WHERE name = ? AND student_num = ?");
         $stmt->bind_param("si", $name, $student_num);
