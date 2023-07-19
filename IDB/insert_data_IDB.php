@@ -37,7 +37,7 @@
             }
         }
         if($Completion == true){
-            $json = json_encode(array("result" => 'success', "msg" => 'success', "name" => $name, "student_num" => $student_num, "error_count" => $error_count, "MSG" => $MSG, "MSG_TF" => $MSG_TF,"idx" =>$idx));
+            $json = json_encode(array("result" => 'success', "msg" => 'success', "name" => $name, "student_num" => $student_num, "error_count" => $error_count, "MSG" => $MSG,"MSG_TF" => $MSG_TF,"idx" =>$idx));
         }else{
             $json = json_encode(array("result" => 'fail', "msg" => 'Completion fail'));
         }
