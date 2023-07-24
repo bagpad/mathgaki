@@ -2,11 +2,29 @@ import requests
 import json
 
 # DB에 데이터 추가하는 함수. 밑에 'new_data' 있는 정보를 DB에 삽입.
+
+"""
+# 로그인시 사용되는 변수
+name : String -> 
+student_num : int
+ex .  name 은 ID로 사용 student_num 은 비밀번호로 사용함. 
+error_count : String JSON Type 규격을 따를것.
+ex. {"PACKETS":88,"ERROR_COUNT":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+위와 같은 규격으로 작성 하고 PACKETS 은 ERROR_COUNT 배열의 크기 (책의 갯수?)  ERROR_COUNT 는 각 책마다 에러 카운트 값을 저장함. array index 0 (ERROR_COUNT[0]) 은 책 1번의 오류 카운트 값을 의미함.
+# 선생님의 메시지 표출  
+MSG : String
+MSG_TF : int
+ex. MSG : 실질적인 메시지 MSG_TF : 메시지가 있는지 없는지? 이변수의 조작은 ADMIN 이 학생에게 메시지를 보낼경우 1 (TRUE) 학생이 메시지를 확인 했을경우 0 (FALSE) 로 조작함.
+"""
+
+msg = str({"PACKETS":88,"ERROR_COUNT":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]})
+
 def insert_data(data):
     for new_data in data:
         post = {'name': new_data['name'], 'student_num': new_data['student_num'],'error_count': new_data['error_count'],'MSG': new_data['MSG'],'MSG_TF': new_data['MSG_TF']}
         response = requests.post('http://tkddn4508.dothome.co.kr/math101/insert_data_IDB.php', data=post)
-    print(response)
+    json_msg = json.loads(response.text)
+    print(json_msg)
 
 '''
 # 책 번호를 기준으로 DB 정보 삭제. ex) delete_data_bn('2')은 2번 책 문제 전체 삭제
@@ -50,18 +68,16 @@ def fetch_data():
         return False
     return big_dic
 
-# ======================== 실행 예시 ======================== #
+# ======================== 실행 예시 ========================
 
 new_data = [
-    {'name': '임준', 'student_num': '30213', 'error_count': 0, 'MSG':' ', 'MSG_TF': 0},
-    {'name': '김윤호', 'student_num': '30202', 'error_count': 0, 'MSG':' ', 'MSG_TF': 0},
+    {'name': '임준', 'student_num': 30213, 'error_count': msg, 'MSG':' ', 'MSG_TF': 0},
+    {'name': '김윤호', 'student_num': 30213, 'error_count': msg, 'MSG':' ', 'MSG_TF': 0},
+    {'name': '이상우', 'student_num': 20230001, 'error_count': msg, 'MSG':' ', 'MSG_TF': 0},
 ]
-
 
 # 데이터 추가하기
 insert_data(new_data)
-
-
 # 책 번호로 삭제하기
 # delete_data_bn('2')
 
