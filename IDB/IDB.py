@@ -26,17 +26,13 @@ def insert_data(data):
     json_msg = json.loads(response.text)
     print(json_msg)
 
-'''
-# 책 번호를 기준으로 DB 정보 삭제. ex) delete_data_bn('2')은 2번 책 문제 전체 삭제
-def delete_data_bn(name):
-    post = {'name': name}
-    response = requests.post('http://tkddn4508.dothome.co.kr/math101/delete_data_bn.php', data=post)
 
-# 문제를 기준으로 DB정보 삭제
-def delete_data_qn(student_num):
-    post = {'student_num': student_num}
-    response = requests.post('http://tkddn4508.dothome.co.kr/math101/delete_data_qn.php',data=post)
-'''
+# 이름을 기준으로 DB 정보 삭제. 
+def delete_data_sn(name):
+    post = {'name': name}
+    response = requests.post('http://tkddn4508.dothome.co.kr/math101/delete_data_sn_IDB.php', data=post)
+
+
 
 # DB 데이터 불러오기 함수
 def fetch_data():
@@ -77,16 +73,13 @@ new_data = [
 ]
 
 # 데이터 추가하기
-insert_data(new_data)
-# 책 번호로 삭제하기
-# delete_data_bn('2')
+# insert_data(new_data)
 
-
-# 질문 이름으로 삭제하기
-# delete_data_qn('')
+# 책 이름으로 삭제하기
+delete_data_sn('임준')
 
 
 # 데이터 불러오기
 
-#value = insert_data()
-#print(value)
+# value = fetch_data()
+# print(value)
