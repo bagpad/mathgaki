@@ -33,14 +33,13 @@ def delete_data_sn(name):
     response = requests.post('http://tkddn4508.dothome.co.kr/math101/delete_data_sn_IDB.php', data=post)
 
 
-
-# DB 데이터 불러오기 함수
+# 수정된 fetch_data() 함수
 def fetch_data():
     # DB 연결
     # 커서 가져오기 (쿼리 실행하기 위함)
     response = requests.get('http://tkddn4508.dothome.co.kr/math101/fetch_data_IDB.php')
     json_msg = json.loads(response.text)
-    big_dic = {}
+    small_dic = {}
     if json_msg['result'] == 'success':
         rows = json_msg['row']
         for row in rows:
@@ -50,36 +49,62 @@ def fetch_data():
             MSG = row['MSG']
             MSG_TF = row['MSG_TF']
             
-        
-            if name not in big_dic:
-                big_dic[name] = {}
-        
-            if student_num not in big_dic[name]:
-                big_dic[name][student_num] = {}
-        
-            big_dic[name][student_num]['정답'] = error_count
-            big_dic[name][student_num]['오답'] = [MSG, MSG_TF]
+            # 해당 이름으로 데이터를 저장
+            small_dic[name] = {
+                'student_num': student_num,
+                'error_count': error_count,
+                'MSG': MSG,
+                'MSG_TF': MSG_TF
+            }
     else:
         # 연결 실패 처리
         return False
-    return big_dic
+    return small_dic
+
+
+# 메시지 추가하기 함수
+def add_MSG(name, MSG):
+    a = fetch_data()
+    # 새로운 메시지를 포함한 학생 정보 업로드
+    sn = a['임준']['student_num']
+    ec = a['임준']['error_count']
+
+    # 이름을 기준으로 해당 학생의 정보 삭제
+    delete_data_sn(name)
+    
+   
+
+    new_data = [
+    {'name': name, 'student_num': sn, 'error_count': ec, 'MSG': MSG, 'MSG_TF': 1}
+]
+    
+
+    # 데이터 추가하기    
+    insert_data(new_data)
+
 
 # ======================== 실행 예시 ========================
 
 new_data = [
     {'name': '임준', 'student_num': 30213, 'error_count': msg, 'MSG':' ', 'MSG_TF': 0},
-    {'name': '김윤호', 'student_num': 30213, 'error_count': msg, 'MSG':' ', 'MSG_TF': 0},
+    {'name': '김윤호', 'student_num': 30202, 'error_count': msg, 'MSG':' ', 'MSG_TF': 0},
     {'name': '이상우', 'student_num': 20230001, 'error_count': msg, 'MSG':' ', 'MSG_TF': 0},
 ]
+
+
 
 # 데이터 추가하기
 # insert_data(new_data)
 
-# 책 이름으로 삭제하기
-delete_data_sn('임준')
+# 학생 이름으로 삭제하기
+# delete_data_sn('임준')
+
+# 메세지 추가하기
+add_MSG('김윤호', '수염좀 깎으세요')
+
+# 메세지 확인
 
 
 # 데이터 불러오기
-
-# value = fetch_data()
-# print(value)
+value = fetch_data()
+print(value)
