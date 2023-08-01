@@ -66,8 +66,8 @@ def fetch_data():
 def add_MSG(name, MSG):
     a = fetch_data()
     # 새로운 메시지를 포함한 학생 정보 업로드
-    sn = a['임준']['student_num']
-    ec = a['임준']['error_count']
+    sn = a[name]['student_num']
+    ec = a[name]['error_count']
 
     # 이름을 기준으로 해당 학생의 정보 삭제
     delete_data_sn(name)
@@ -82,6 +82,59 @@ def add_MSG(name, MSG):
     # 데이터 추가하기    
     insert_data(new_data)
 
+'''
+# 틀린 횟수 수정하기 함수
+def update_error_count(name, index, new_value):
+
+    data = fetch_data()
+    # 해당 학생의 정보가 없으면 종료
+    if name not in data:
+        print(f"{name} 학생의 정보가 없습니다.")
+        return
+
+    # 기존 틀린 횟수 정보를 가져오기
+    error_count = data[name]['error_count']
+    new_msg = error_count
+    # 새로운 값을 기존 틀린 횟수에 적용
+    if index >= 0 and index < len(error_count):
+        error_count[index] = new_value
+        # error_count[index] = new_value
+ 
+    # 이름을 기준으로 해당 학생의 정보 삭제
+    delete_data_sn(name)
+
+    sn = data[name]['student_num']
+    ec = data[name]['error_count']
+    MSG = data[name]['MSG']
+    MSG_TF = data[name]['MSG_TF']
+
+    new_data = [
+    {'name': name, 'student_num': sn, 'error_count': error_count, 'MSG': MSG, 'MSG_TF': MSG_TF}
+]
+    # 데이터 추가하기    
+    insert_data(new_data)
+ '''   
+ # 틀린 횟수 수정하기 함수
+def update_error_count(name, new_msg):
+
+    a = fetch_data()
+    # 새로운 메시지를 포함한 학생 정보 업로드
+    sn = a[name]['student_num']
+    MSG = a[name]['MSG']
+    MSG_TF = a[name]['MSG_TF']
+
+    # 이름을 기준으로 해당 학생의 정보 삭제
+    delete_data_sn(name)
+    
+   
+
+    new_data = [
+    {'name': name, 'student_num': sn, 'error_count': new_msg, 'MSG': MSG, 'MSG_TF': 1}
+]
+
+    # 데이터 추가하기    
+    insert_data(new_data)
+
 
 # ======================== 실행 예시 ========================
 
@@ -90,7 +143,7 @@ new_data = [
     {'name': '김윤호', 'student_num': 30202, 'error_count': msg, 'MSG':' ', 'MSG_TF': 0},
     {'name': '이상우', 'student_num': 20230001, 'error_count': msg, 'MSG':' ', 'MSG_TF': 0},
 ]
-
+ 
 
 
 # 데이터 추가하기
@@ -98,13 +151,17 @@ new_data = [
 
 # 학생 이름으로 삭제하기
 # delete_data_sn('임준')
+# delete_data_sn('이상우')
+# delete_data_sn('김윤호')
 
 # 메세지 추가하기
-add_MSG('김윤호', '수염좀 깎으세요')
+# add_MSG('김윤호', '수염좀 깎으세요')
 
-# 메세지 확인
 
+# 틀린 횟수 수정하기 함수 호출
+new_error_count = {"PACKETS":88,"ERROR_COUNT":[1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+update_error_count('이상우', new_error_count)
 
 # 데이터 불러오기
-value = fetch_data()
-print(value)
+# value = fetch_data()
+# print(value)
