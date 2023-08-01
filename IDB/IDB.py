@@ -3,6 +3,7 @@ import json
 
 # DB에 데이터 추가하는 함수. 밑에 'new_data' 있는 정보를 DB에 삽입.
 
+
 """
 # 로그인시 사용되는 변수
 name : String -> 
